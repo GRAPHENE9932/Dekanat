@@ -23,7 +23,7 @@
     return std::nullopt;
 }
 
-[[nodiscard]] std::optional<std::string> validate_password(const std::string& password, const std::string& repeat_password) {
+[[nodiscard]] std::optional<std::string> validate_password_for_signup(const std::string& password, const std::string& repeat_password) {
     if (password != repeat_password) {
         return "Passwords do not match.";
     }

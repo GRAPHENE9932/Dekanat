@@ -42,7 +42,7 @@ void SignUpSubmitController::asyncHandleHttpRequest(
     // Get and validate password.
     std::string password = request->getParameter("password");
     std::string repeat_password = request->getParameter("repeat-password");
-    errors.push_back(validate_password(password, repeat_password));
+    errors.push_back(validate_password_for_signup(password, repeat_password));
 
     // Get and validate email.
     std::string email = request->getParameter("email");
