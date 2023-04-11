@@ -60,7 +60,7 @@ void add_admin(const std::string& username, const std::string& email, const std:
     );
 }
 
-[[nodiscard]] bool check_if_already_has_admin(const std::string& email) {
+[[nodiscard]] bool check_if_has_admin(const std::string& email) {
     create_admin_table_if_dont_exist();
 
     auto client = drogon::app().getDbClient("main");

@@ -57,7 +57,7 @@
         return "The specified E-mail is empty.";
     }
 
-    if (check_if_already_has_admin(email)) {
+    if (check_if_has_admin(email)) {
         return "An account with this E-mail is already taken.";
     }
 
