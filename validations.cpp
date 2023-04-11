@@ -23,6 +23,26 @@
     return std::nullopt;
 }
 
+// Returns error, if the specified group name is invalid.
+[[nodiscard]] std::optional<std::string> validate_group_name(const std::string& group_name) {
+    if (group_name.empty()) {
+        return "The group name is empty.";
+    }
+
+    if (group_name.length() > 512) {
+        return "The group name is too long.";
+    }
+
+    // Check if all characters are either English letters or spaces.
+    for (const char c : group_name) {
+        if (!is_english_letter(c) && !is_digit(c) && c != ' ' && c != '-' && c != '/') {
+            return "Group name contains invalid characters. English letters, spaces, '-', and '/' are allowed only.";
+        }
+    }
+
+    return std::nullopt;
+}
+
 [[nodiscard]] std::optional<std::string> validate_password_for_signup(const std::string& password, const std::string& repeat_password) {
     if (password != repeat_password) {
         return "Passwords do not match.";

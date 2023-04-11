@@ -5,6 +5,8 @@
 
 // Returns error, if the specified username is invalid.
 [[nodiscard]] std::optional<std::string> validate_username(const std::string& username);
+// Returns error, if the specified group name is invalid.
+[[nodiscard]] std::optional<std::string> validate_group_name(const std::string& group_name);
 // Returns error, if the specified password is invalid.
 [[nodiscard]] std::optional<std::string> validate_password_for_signup(const std::string& password, const std::string& repeat_password);
 // Returns error, if the specified E-mail is invalid or already taken.

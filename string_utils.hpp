@@ -6,6 +6,10 @@
     return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
 }
 
+[[nodiscard]] inline bool is_digit(char c) {
+    return c >= '0' && c <= '9';
+}
+
 const std::string whitespaces {" \t\n\r\f\v"};
 
 void trim_left(std::string& string, const std::string& redunant = whitespaces);
