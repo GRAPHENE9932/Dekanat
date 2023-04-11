@@ -52,3 +52,5 @@ target_sources(${PROJECT_NAME}
 
 # ##############################################################################
 
+# Copy static stuff (pages, images, styles, etc.)
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/static DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
