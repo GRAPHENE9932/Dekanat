@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dekanat</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Manrope:normal,bold,bolder">
+        <link rel="stylesheet" type="text/css" href="static/css/main.css"/>
+    </head>
+    <body>
+        <header>
+            <div class="logo"><div>Dekanat</div></div>
+
+            <a href="login" class="header-button" id="login">Log in</a>
+            <a href="signup" class="header-button">Sign up</a>
+        </header>
+        <div class="page-content">
+            <h2>Welcome to the most advanced student management system in the world!</h2>
+            <p>
+                An extremely advanced and powerful system to manage your studens from everywhere
+                in the world. Here is a brief overview of Dekanat's features:
+            </p>
+            <p>Priveleged accounts for university workers.</p>
+            <p>Adding, removing and modifying student's data.</p>
+            <p>Ability to create and manage groups of students.</p>
+            <p style="font-weight: bold">Please log in or sign up to start using this amazing service!</p>
+        </div>
+    </body>
+</html>

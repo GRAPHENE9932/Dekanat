@@ -1,0 +1,29 @@
+{
+    "app": {
+        "file_types": [
+            "gif",
+            "png",
+            "jpg",
+            "js",
+            "css",
+            "html",
+            "ico",
+            "swf",
+            "xap",
+            "apk",
+            "cur",
+            "xml",
+            "webp"
+        ]
+    },
+    "db_clients": [
+        {
+            "name": "main",
+            "rdbms": "sqlite3",
+            "dbname": "main",
+            "is_fast": false,
+            "connection_number": 1,
+            "filename": "main.db"
+        }
+    ]
+}

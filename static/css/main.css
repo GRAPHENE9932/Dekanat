@@ -1,0 +1,87 @@
+header {
+	background-color: rgb(53, 53, 53);
+	overflow: hidden;
+}
+
+body {
+	background-color: rgba(36, 36, 36, 0.5);
+	background-image: url("../images/main-background.webp");
+	padding: 0;
+    margin: 0;
+}
+
+h2 {
+	font-family: Manrope;
+	font-weight: bold;
+	color: whitesmoke;
+	font-size: 30px;
+}
+
+p {
+	font-family: Manrope;
+	font-size: 20px;
+	color: whitesmoke;
+}
+
+.logo {
+	float: left;
+
+	font-family: Manrope;
+	font-size: 35px;
+	font-weight: bolder;
+	color: whitesmoke;
+	width: fit-content;
+	padding-left: 15px;
+	padding-bottom: 7px;
+	padding-top: 3px;
+
+	display: flex;
+	align-items: center;
+}
+
+.header-button {
+	float: right;
+
+	font-family: Manrope;
+	font-size: 19px;
+	color: whitesmoke;
+	text-decoration: none;
+
+	text-align: center;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	margin: 4px;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	border-radius: 5px;
+
+	background-color: rgb(57, 136, 234);
+	border: 1px;
+	border-style: solid;
+	border-color: rgb(117, 193, 255);
+
+	transition: border-color 150ms;
+	transition-timing-function: ease-in;
+}
+
+#login {
+	color: black;
+	background-color: rgb(223, 223, 223);
+	border-color: grey;
+}
+
+.header-button:hover {
+	border-color: white;
+}
+
+#login:hover {
+	border-color: white;
+}
+
+.page-content {
+	max-width: 45%;
+	margin-left: auto;
+	margin-right: auto;
+}
