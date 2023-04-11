@@ -2,6 +2,8 @@
 #include "string_utils.hpp"
 #include "main_database_manager.hpp"
 
+#include <fstream>
+
 [[nodiscard]] std::optional<std::string> validate_username(const std::string& username) {
     if (username.empty()) {
         return "Empty user name.";
@@ -64,6 +66,21 @@
 
 // Returns error, if the specified admin code is invalid.
 [[nodiscard]] std::optional<std::string> validate_admin_code(const std::string& admin_code) {
+    if (admin_code.empty()) {
+        return "The specified administrator code is empty.";
+    }
+
+    // Get the correct admin code.
+    std::ifstream stream("static/admin-code.txt");
+    if (!stream) {
+        return "There are no correct administrator code! Failed to read one from file.";
+    }
+    std::string correct_admin_code;
+    stream >> correct_admin_code;
+    if (admin_code != correct_admin_code) {
+        return "Incorrect administrator code.";
+    }
+
     return std::nullopt;
 }
 
