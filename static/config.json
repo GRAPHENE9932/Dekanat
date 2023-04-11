@@ -14,7 +14,8 @@
             "cur",
             "xml",
             "webp"
-        ]
+        ],
+        "enable_session": true
     },
     "db_clients": [
         {

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dekanat sign in</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Manrope:normal,bold,bolder">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+        <link rel="stylesheet" type="text/css" href="/static/css/signup_and_signin.css"/>
+    </head>
+    <body>
+        <header>
+            <div class="logo"><div>Dekanat</div></div>
+            
+            <a href="." class="header-button">Back</a>
+        </header>
+        
+        <div class="content">
+            <form action="/login/submit" method="post">
+                <label for="email">E-mail<span class="red">*</span>:</label>
+                <br/>
+                <input type="email" id="email" name="email" placeholder="dekanat@mail.com"/>
+                <br/>
+                <label for="password">Password<span class="red">*</span>:</label>
+                <br/>
+                <input type="password" id="password" name="password"/>
+                <br/>
+                <input type="submit" value="Log in"/>
+            </form>
+    
+            <%c++
+                std::string errors_str = @@.get<std::string>("errors_str");
+    
+                if (!errors_str.empty()) {
+            %>
+    
+            <div class="error-box">
+                <div class="error-box-text">
+                    [[errors_str]]
+                </div>
+            </div>
+    
+            <%c++
+                }
+            %>
+        </div>
+    </body>
+</html>
