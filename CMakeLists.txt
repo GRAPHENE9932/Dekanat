@@ -14,6 +14,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(${PROJECT_NAME}
     main.cpp
+    string_utils.cpp
 )
 
 find_package(Drogon CONFIG REQUIRED)
