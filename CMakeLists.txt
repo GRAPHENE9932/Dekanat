@@ -15,6 +15,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_executable(${PROJECT_NAME}
     main.cpp
     string_utils.cpp
+    random_generator.cpp
+    main_database_manager.cpp
 )
 
 find_package(Drogon CONFIG REQUIRED)

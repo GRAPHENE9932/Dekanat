@@ -1,4 +1,5 @@
 #include "SignUpSubmitController.hpp"
+#include "main_database_manager.hpp"
 #include "string_utils.hpp"
 
 #include <regex>
@@ -57,6 +58,10 @@
 [[nodiscard]] std::optional<std::string> validate_email(const std::string& email) {
     if (email.empty()) {
         return "The specified E-mail is empty.";
+    }
+
+    if (check_if_already_has_admin(email)) {
+        return "An account with this E-mail is already taken.";
     }
 
     return std::nullopt;
@@ -125,6 +130,8 @@ void SignUpSubmitController::asyncHandleHttpRequest(
         callback(response);
     }
     else {
+        add_admin(username, email, password);
+
         auto response = drogon::HttpResponse::newRedirectionResponse("/groups");
         callback(response);
     }

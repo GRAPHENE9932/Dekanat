@@ -1,6 +1,9 @@
+#include "random_generator.hpp"
+
 #include <drogon/drogon.h>
 
 int main() {
+    seed_rendomizer_with_time();
     //Set HTTP listener address and port
     drogon::app().addListener("0.0.0.0", 8080);
     //Load config file
