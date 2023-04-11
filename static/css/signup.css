@@ -81,7 +81,7 @@ label {
     color: whitesmoke;
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=email], input[type=password] {
     font-family: "Source Code Pro";
     font-size: 18px;
     color: whitesmoke;
