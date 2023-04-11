@@ -16,3 +16,5 @@ void add_group(const std::string& group_name);
 [[nodiscard]] bool validate_student_credentials(const std::string& email, const std::string& password);
 [[nodiscard]] std::vector<std::string> get_groups();
 [[nodiscard]] std::optional<std::string> get_student_group(const std::string& email);
+// Returns pair of the student name (first) and student email (second).
+[[nodiscard]] std::vector<std::pair<std::string, std::string>> get_students_in_group(const std::string& group);

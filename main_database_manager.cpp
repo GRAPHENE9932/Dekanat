@@ -211,3 +211,22 @@ void add_group(const std::string& group_name) {
 
     return result.at(0).at("group").as<std::string>();
 }
+
+[[nodiscard]] std::vector<std::pair<std::string, std::string>> get_students_in_group(const std::string& group) {
+    create_student_table_if_dont_exist();
+
+    auto client = drogon::app().getDbClient("main");
+
+    auto result = client->execSqlSync("SELECT * FROM students WHERE 'group'=?", group);
+    
+    std::vector<std::pair<std::string, std::string>> output;
+    output.reserve(result.size());
+    for (const auto& row : result) {
+        output.emplace_back(
+            std::move(row.at("name").as<std::string>()),
+            std::move(row.at("email").as<std::string>())
+        );
+    }
+
+    return output;
+}

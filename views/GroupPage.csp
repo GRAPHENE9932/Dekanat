@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dekanat groups view</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Manrope:normal,bold,bolder">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+        <link rel="stylesheet" type="text/css" href="/static/css/group.css"/>
+    </head>
+    <body>
+        <header>
+            <div class="logo"><div>Dekanat</div></div>
+
+            <a href="/groups" class="header-button">Back</a>
+            <a href="/new-student" class="header-button" style="color: whitesmoke; background-color: rgb(68, 179, 45);">Add new student</a>
+        </header>
+
+        <div class="content">
+            <%c++
+                const auto& students = @@.get<std::vector<std::pair<std::string, std::string>>>("students");
+                for (const auto& cur_student : students) {
+            %>
+            <div class="student-container">
+				<div>
+					{%cur_student.first%}
+					<span class="email-text">{%cur_student.second%}</span>
+				</div>
+                <a href="/delete-student?email={%cur_student.second%}" class="delete-button">Delete</a>
+            </div>
+            <%c++
+                }
+            %>
+        </div>
+    </body>
+</html>
