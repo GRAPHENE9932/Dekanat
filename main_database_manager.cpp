@@ -183,3 +183,31 @@ void add_group(const std::string& group_name) {
 
     return true;
 }
+
+[[nodiscard]] std::vector<std::string> get_groups() {
+    create_group_table_if_dont_exist();
+
+    auto client = drogon::app().getDbClient("main");
+
+    auto result = client->execSqlSync("SELECT * FROM groups");
+    std::vector<std::string> groups;
+    groups.reserve(result.size());
+    for (const auto& row : result) {
+        groups.emplace_back(std::move(row.at("name").as<std::string>()));
+    }
+
+    return groups;
+}
+
+[[nodiscard]] std::optional<std::string> get_student_group(const std::string& email) {
+    create_student_table_if_dont_exist();
+
+    auto client = drogon::app().getDbClient("main");
+
+    auto result = client->execSqlSync("SELECT * FROM students WHERE email=?", email);
+    if (result.empty()) {
+        return std::nullopt;
+    }
+
+    return result.at(0).at("group").as<std::string>();
+}

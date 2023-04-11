@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <vector>
+#include <optional>
 
 void add_admin(const std::string& username, const std::string& email, const std::string& password);
 void add_student(
@@ -12,3 +14,5 @@ void add_group(const std::string& group_name);
 [[nodiscard]] bool check_if_has_student(const std::string& email);
 [[nodiscard]] bool validate_admin_credentials(const std::string& email, const std::string& password);
 [[nodiscard]] bool validate_student_credentials(const std::string& email, const std::string& password);
+[[nodiscard]] std::vector<std::string> get_groups();
+[[nodiscard]] std::optional<std::string> get_student_group(const std::string& email);
