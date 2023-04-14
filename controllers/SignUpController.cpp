@@ -1,11 +1,11 @@
-#include "SignUpSubmitController.hpp"
-#include "main_database_manager.hpp"
+#include "SignUpController.hpp"
 #include "string_utils.hpp"
+#include "main_database_manager.hpp"
 #include "validations.hpp"
 
-void SignUpSubmitController::asyncHandleHttpRequest(
+void SignUpController::submit(
     const drogon::HttpRequestPtr& request,
-    std::function<void(const drogon::HttpResponsePtr&)>&& callback
+    std::function<void (const drogon::HttpResponsePtr&)>&& callback
 ) {
     std::vector<std::optional<std::string>> errors;
 
@@ -41,4 +41,12 @@ void SignUpSubmitController::asyncHandleHttpRequest(
         auto response = drogon::HttpResponse::newRedirectionResponse("/groups");
         callback(response);
     }
+}
+
+void SignUpController::show_page(
+    const drogon::HttpRequestPtr& request,
+    std::function<void (const drogon::HttpResponsePtr&)>&& callback
+) {
+    auto response = drogon::HttpResponse::newHttpViewResponse("SignUpPage.csp");
+    callback(response);
 }
