@@ -105,7 +105,7 @@ void add_student(
 
     auto client = drogon::app().getDbClient("main");
     client->execSqlSync(
-        "INSERT INTO students (email, username, group, password_hash, salt)",
+        "INSERT INTO students (email, username, 'group', password_hash, salt)"
         "VALUES (?, ?, ?, ?, ?)",
         email, username, group_name, hash_and_salt.first, hash_and_salt.second
     );
@@ -142,6 +142,28 @@ void add_group(const std::string& group_name) {
     );
 
     return !result.empty();
+}
+
+[[nodiscard]] bool validate_admin_session(const drogon::SessionPtr& session) {
+    auto email = session->getOptional<std::string>("email");
+    auto password = session->getOptional<std::string>("password");
+    if (email.has_value() && password.has_value()) {
+        return validate_admin_credentials(*email, *password);
+    }
+    else {
+        return false;
+    }
+}
+
+[[nodiscard]] bool validate_student_or_admin_session(const drogon::SessionPtr& session) {
+    auto email = session->getOptional<std::string>("email");
+    auto password = session->getOptional<std::string>("password");
+    if (email.has_value() && password.has_value()) {
+        return validate_student_credentials(*email, *password) || validate_admin_credentials(*email, *password);
+    }
+    else {
+        return false;
+    }
 }
 
 [[nodiscard]] bool validate_admin_credentials(const std::string& email, const std::string& password) {
@@ -199,6 +221,15 @@ void add_group(const std::string& group_name) {
     return groups;
 }
 
+[[nodiscard]] bool group_exists(const std::string& group_name) {
+    create_group_table_if_dont_exist();
+
+    auto client = drogon::app().getDbClient("main");
+
+    auto result = client->execSqlSync("SELECT * FROM groups WHERE 'group'=?", group_name);
+    return !result.empty();
+}
+
 [[nodiscard]] std::optional<std::string> get_student_group(const std::string& email) {
     create_student_table_if_dont_exist();
 
@@ -217,13 +248,13 @@ void add_group(const std::string& group_name) {
 
     auto client = drogon::app().getDbClient("main");
 
-    auto result = client->execSqlSync("SELECT * FROM students WHERE 'group'=?", group);
+    auto result = client->execSqlSync("SELECT * FROM students WHERE \"group\"=?", group);
     
     std::vector<std::pair<std::string, std::string>> output;
     output.reserve(result.size());
     for (const auto& row : result) {
         output.emplace_back(
-            std::move(row.at("name").as<std::string>()),
+            std::move(row.at("username").as<std::string>()),
             std::move(row.at("email").as<std::string>())
         );
     }
