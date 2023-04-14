@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dekanat: new student creation</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Manrope:normal,bold,bolder">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+        <link rel="stylesheet" type="text/css" href="/static/css/new_student.css"/>
+    </head>
+    <body>
+        <header>
+            <div class="logo"><div>Dekanat</div></div>
+            
+            <a href="/group?name=[[group]]" class="header-button">Back</a>
+        </header>
+        
+        <div class="content">
+            <form action="/new-student/submit?group=[[group]]" method="post">
+                <label for="username">First name and last name<span class="red">*</span>:</label>
+                <br/>
+                <input type="text" id="username" name="username" placeholder="Artem Kliminskyi"/>
+                <br/>
+                <label for="email">E-mail<span class="red">*</span>:</label>
+                <br/>
+                <input type="email" id="email" name="email" placeholder="dekanat@mail.com"/>
+                <br/>
+                <label for="password">Password<span class="red">*</span>:</label>
+                <br/>
+                <input type="password" id="password" name="password"/>
+                <br/>
+                <label for="repeat-password">Repeat password<span class="red">*</span>:</label>
+                <br/>
+                <input type="password" id="repeat-password" name="repeat-password"/>
+                <br/>
+                <input type="submit" value="Add student"/>
+            </form>
+    
+            <%c++
+                std::string errors_str = @@.get<std::string>("errors_str");
+    
+                if (!errors_str.empty()) {
+            %>
+    
+            <div class="error-box">
+                <div class="error-box-text">
+                    [[errors_str]]
+                </div>
+            </div>
+    
+            <%c++
+                }
+            %>
+        </div>
+    </body>
+</html>
