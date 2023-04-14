@@ -3,31 +3,6 @@
 #include "string_utils.hpp"
 #include "validations.hpp"
 
-[[nodiscard]] bool has_errors(const std::vector<std::optional<std::string>>& errors) {
-    for (const auto& error : errors) {
-        if (error.has_value()) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-[[nodiscard]] std::string unite_errors(const std::vector<std::optional<std::string>>& errors) {
-    std::string result;
-
-    for (const auto& error : errors) {
-        if (!error.has_value()) {
-            continue;
-        }
-
-        result += *error;
-        result += "<br/>";
-    }
-
-    return result;
-}
-
 void SignUpSubmitController::asyncHandleHttpRequest(
     const drogon::HttpRequestPtr& request,
     std::function<void(const drogon::HttpResponsePtr&)>&& callback
