@@ -23,6 +23,7 @@ void GroupPageController::asyncHandleHttpRequest(
 
     drogon::HttpViewData view_data;
     view_data.insert("students", get_students_in_group(*group));
+    view_data.insert("group", *group);
     if (validate_student_credentials(email, password)) {
         view_data.insert("is_admin", false);
     }
