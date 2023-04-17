@@ -261,3 +261,11 @@ void add_group(const std::string& group_name) {
 
     return output;
 }
+
+void delete_admin(const std::string& email) {
+    create_admin_table_if_dont_exist();
+
+    auto client = drogon::app().getDbClient("main");
+
+    client->execSqlSync("DELETE FROM admins WHERE email=?", email);
+}
