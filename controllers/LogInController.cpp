@@ -1,6 +1,7 @@
 #include "LogInController.hpp"
 #include "main_database_manager.hpp"
 #include "string_utils.hpp"
+#include <drogon/HttpResponse.h>
 
 void LogInController::submit(
     const drogon::HttpRequestPtr& request,
@@ -42,4 +43,15 @@ void LogInController::show_page(
         auto response = drogon::HttpResponse::newHttpViewResponse("LogInPage.csp");
         callback(response);
     }
+}
+
+void LogInController::logout(
+    const drogon::HttpRequestPtr& request,
+    std::function<void (const drogon::HttpResponsePtr&)>&& callback
+) {
+    request->session()->erase("email");
+    request->session()->erase("password");
+
+    auto response = drogon::HttpResponse::newRedirectionResponse("/");
+    callback(response);
 }

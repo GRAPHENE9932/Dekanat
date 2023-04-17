@@ -11,7 +11,7 @@
         <header>
             <div class="logo"><div>Dekanat</div></div>
 
-            <a href="/" class="header-button">Log out</a>
+            <a href="/logout" class="header-button">Log out</a>
             <a href="/delete-account" class="header-button" style="color: whitesmoke; background-color: rgb(189, 84, 84);">Delete account</a>
             <a href="/new-group" class="header-button" style="color: whitesmoke; background-color: rgb(68, 179, 45);">Create new group</a>
         </header>
