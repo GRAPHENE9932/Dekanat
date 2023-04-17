@@ -37,6 +37,8 @@ void SignUpController::submit(
     }
     else {
         add_admin(username, email, password);
+        request->session()->insert("email", email);
+        request->session()->insert("password", password);
 
         auto response = drogon::HttpResponse::newRedirectionResponse("/groups");
         callback(response);
