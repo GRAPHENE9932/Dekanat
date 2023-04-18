@@ -12,7 +12,14 @@
             <div class="logo"><div>Dekanat</div></div>
 
             <a href="/groups" class="header-button">Back</a>
+            <%c++
+                const bool is_admin = @@.get<bool>("is_admin");
+                if (is_admin) {
+            %>
             <a href="/new-student?group=[[group]]" class="header-button" style="color: whitesmoke; background-color: rgb(68, 179, 45);">Add new student</a>
+            <%c++
+                }
+            %>
         </header>
 
         <div class="content">
@@ -25,7 +32,12 @@
                     {%cur_student.first%}
                     <span class="email-text">{%cur_student.second%}</span>
                 </div>
-                <a href="/delete-student?email={%cur_student.second%}" class="delete-button">Delete</a>
+                <%c++
+                    if (is_admin) {
+                %>
+                <%c++
+                    }
+                %>
             </div>
             <%c++
                 }

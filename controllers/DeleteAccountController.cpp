@@ -6,14 +6,14 @@ void DeleteAccountController::asyncHandleHttpRequest(
     const drogon::HttpRequestPtr& request,
     std::function<void(const drogon::HttpResponsePtr&)>&& callback
 ) {
-    if (!validate_admin_session(request->getSession())) {
+    if (!main_db::validate_admin_session(request->getSession())) {
         auto response = drogon::HttpResponse::newNotFoundResponse();
         callback(response);
         return;
     }
 
     std::string email = request->session()->get<std::string>("email");
-    delete_admin(email);
+    main_db::delete_admin(email);
 
     request->session()->erase("email");
     request->session()->erase("password");
