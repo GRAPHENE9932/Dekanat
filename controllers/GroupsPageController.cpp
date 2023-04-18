@@ -9,18 +9,18 @@ void GroupsPageController::asyncHandleHttpRequest(
         std::string email = request->session()->get<std::string>("email");
         std::string password = request->session()->get<std::string>("password");
 
-        if (validate_student_credentials(email, password)) {
+        if (main_db::validate_student_credentials(email, password)) {
             drogon::HttpViewData view_data;
             view_data.insert("is_admin", false);
-            view_data.insert("groups", get_groups());
-            view_data.insert("my_group", get_student_group(email));
+            view_data.insert("groups", main_db::get_groups());
+            view_data.insert("my_group", main_db::get_student_group(email));
             auto response = drogon::HttpResponse::newHttpViewResponse("GroupsPage.csp", view_data);
             callback(response);
         }
-        else if (validate_admin_credentials(email, password)) {
+        else if (main_db::validate_admin_credentials(email, password)) {
             drogon::HttpViewData view_data;
             view_data.insert("is_admin", true);
-            view_data.insert("groups", get_groups());
+            view_data.insert("groups", main_db::get_groups());
             auto response = drogon::HttpResponse::newHttpViewResponse("GroupsPage.csp", view_data);
             callback(response);
         }

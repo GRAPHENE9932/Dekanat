@@ -36,7 +36,7 @@ void SignUpController::submit(
         callback(response);
     }
     else {
-        add_admin(username, email, password);
+        main_db::add_admin(username, email, password);
         request->session()->insert("email", email);
         request->session()->insert("password", password);
 

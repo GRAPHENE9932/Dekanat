@@ -7,7 +7,7 @@ void NewGroupPageController::asyncHandleHttpRequest(
     const drogon::HttpRequestPtr& request,
     std::function<void(const drogon::HttpResponsePtr&)>&& callback
 ) {
-    if (!validate_admin_session(request->getSession())) {
+    if (!main_db::validate_admin_session(request->getSession())) {
         auto response = drogon::HttpResponse::newNotFoundResponse();
         callback(response);
         return;
@@ -23,7 +23,7 @@ void NewGroupPageController::asyncHandleHttpRequest(
             callback(response);
         }
         else {
-            add_group(*submitted_name);
+            main_db::add_group(*submitted_name);
             auto response = drogon::HttpResponse::newRedirectionResponse("/groups");
             callback(response);
         }

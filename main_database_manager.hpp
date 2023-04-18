@@ -25,4 +25,5 @@ namespace main_db {
     // Returns pair of the student name (first) and student email (second).
     [[nodiscard]] std::vector<std::pair<std::string, std::string>> get_students_in_group(const std::string& group);
     void delete_admin(const std::string& email);
+    void delete_student(const std::string& email);
 }

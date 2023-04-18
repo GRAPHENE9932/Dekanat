@@ -13,7 +13,7 @@ void LogInController::submit(
     std::string email = request->getParameter("email");
     trim(email);
 
-    if (validate_student_credentials(email, password) || validate_admin_credentials(email, password)) {
+    if (main_db::validate_student_credentials(email, password) || main_db::validate_admin_credentials(email, password)) {
         request->session()->insert("email", email);
         request->session()->insert("password", password);
         auto response = drogon::HttpResponse::newRedirectionResponse("/groups");
@@ -34,7 +34,7 @@ void LogInController::show_page(
     if (request->session()->find("email") && request->session()->find("password")) {
         std::string email = request->session()->get<std::string>("email");
         std::string password = request->session()->get<std::string>("password");
-        if (validate_student_credentials(email, password) || validate_admin_credentials(email, password)) {
+        if (main_db::validate_student_credentials(email, password) || main_db::validate_admin_credentials(email, password)) {
             auto response = drogon::HttpResponse::newRedirectionResponse("/groups");
             callback(response);
         }
