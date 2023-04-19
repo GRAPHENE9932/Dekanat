@@ -21,6 +21,10 @@
             <%c++
                 }
             %>
+            <form action="/groups/search" method="get">
+                <input type="text" id="query" name="query" placeholder="Search..." class="search-field">
+                <input type="submit" value="Search" class="header-button" id="search-button">
+            </form>
         </header>
 
         <div class="content">

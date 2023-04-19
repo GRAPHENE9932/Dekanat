@@ -66,6 +66,34 @@ body {
     border-color: white;
 }
 
+#search-button {
+    float: left;
+}
+
+.search-field {
+    float: left;
+
+    font-family: Manrope;
+    font-size: 19px;
+    color: black;
+    text-decoration: none;
+
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    margin: 4px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    margin-left: 20px;
+    border-radius: 5px;
+
+    background-color: whitesmoke;
+    border: 1px;
+    border-style: solid;
+    border-color: grey;
+}
+
 .group-container {
     font-family: Manrope;
     font-weight: bolder;
