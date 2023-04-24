@@ -272,7 +272,7 @@ namespace main_db {
         client->execSqlSync("DELETE FROM admins WHERE email=?", email);
     }
 
-    void delete_student(const std::string &email) {
+    void delete_student(const std::string& email) {
         create_student_table_if_dont_exist();
 
         auto client = drogon::app().getDbClient("main");
