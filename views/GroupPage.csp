@@ -1,3 +1,4 @@
+<%inc#include "main_database_manager.hpp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,18 +25,18 @@
 
         <div class="content">
             <%c++
-                const auto& students = @@.get<std::vector<std::pair<std::string, std::string>>>("students");
+                const auto& students = @@.get<std::vector<main_db::StudentData>>("students");
                 for (const auto& cur_student : students) {
             %>
             <div class="student-container">
                 <div>
-                    {%cur_student.first%}
-                    <span class="email-text">{%cur_student.second%}</span>
+                    {%cur_student.name%}
+                    <span class="email-text">{%cur_student.email%}</span>
                 </div>
                 <%c++
                     if (is_admin) {
                 %>
-                    <a href="/delete-student?group=[[group]]&email={%cur_student.second%}" class="delete-button">Delete</a>
+                    <a href="/delete-student?group=[[group]]&email={%cur_student.email%}" class="delete-button">Delete</a>
                 <%c++
                     }
                 %>

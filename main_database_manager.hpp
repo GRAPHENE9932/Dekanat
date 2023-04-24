@@ -7,6 +7,12 @@
 #include <optional>
 
 namespace main_db {
+    struct StudentData {
+        std::string name;
+        std::string email;
+        std::string group;
+    };
+
     void add_admin(const std::string& username, const std::string& email, const std::string& password);
     void add_student(
         const std::string& username, const std::string& email,
@@ -22,8 +28,7 @@ namespace main_db {
     [[nodiscard]] std::vector<std::string> get_groups();
     [[nodiscard]] bool group_exists(const std::string& group_name);
     [[nodiscard]] std::optional<std::string> get_student_group(const std::string& email);
-    // Returns pair of the student name (first) and student email (second).
-    [[nodiscard]] std::vector<std::pair<std::string, std::string>> get_students_in_group(const std::string& group);
+    [[nodiscard]] std::vector<StudentData> get_students_in_group(const std::string& group);
     void delete_admin(const std::string& email);
     void delete_student(const std::string& email);
 }
