@@ -279,4 +279,29 @@ namespace main_db {
 
         client->execSqlSync("DELETE FROM students WHERE email=?", email);
     }
+
+    [[nodiscard]] std::vector<StudentData> search_students(const std::string& query) {
+        create_student_table_if_dont_exist();
+
+        auto client = drogon::app().getDbClient("main");
+
+        std::string like_query = "%" + query + "%";
+        auto result = client->execSqlSync(
+            "SELECT * FROM students "
+            "WHERE username LIKE ? OR email LIKE ?",
+            like_query, like_query
+        );
+
+        std::vector<StudentData> output;
+        output.reserve(result.size());
+        for (const auto& row : result) {
+            output.push_back({
+                std::move(row.at("username").as<std::string>()),
+                std::move(row.at("email").as<std::string>()),
+                std::move(row.at("group").as<std::string>())
+            });
+        }
+
+        return output;
+    }
 }

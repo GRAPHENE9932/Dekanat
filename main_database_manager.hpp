@@ -31,4 +31,5 @@ namespace main_db {
     [[nodiscard]] std::vector<StudentData> get_students_in_group(const std::string& group);
     void delete_admin(const std::string& email);
     void delete_student(const std::string& email);
+    [[nodiscard]] std::vector<StudentData> search_students(const std::string& query);
 }
