@@ -286,7 +286,7 @@ namespace main_db {
 
         auto client = drogon::app().getDbClient("main");
 
-        client->execSqlSync("DELETE FROM students WHERE 'group'=?", name);
+        client->execSqlSync("DELETE FROM students WHERE `group`=?", name);
         client->execSqlSync("DELETE FROM groups WHERE name=?", name);
     }
 
