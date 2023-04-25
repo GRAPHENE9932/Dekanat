@@ -43,6 +43,14 @@
             </div>
             <%c++
                 }
+
+                if (students.empty()) {
+            %>
+                <div class="no-students-text">
+                    There are not a single student!
+                </div>
+            <%c++
+                }
             %>
         </div>
     </body>
