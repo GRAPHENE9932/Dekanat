@@ -35,6 +35,16 @@
                 <div class="group-container">
                     {%cur_group%}
                     <a href="/group?name={%cur_group%}" class="group-button">View</a>
+                    <a href="/delete-group?name={%cur_group%}" class="group-button" style="background-color: rgb(206, 35, 35); border-color: rgb(167, 28, 28);">Delete</a>
+                </div>
+            <%c++
+                }
+
+                if (groups.empty()) {
+            %>
+                <div class="no-groups-text">
+                    There are not a single group!<br/>
+                    Create one to begin.
                 </div>
             <%c++
                 }

@@ -280,6 +280,16 @@ namespace main_db {
         client->execSqlSync("DELETE FROM students WHERE email=?", email);
     }
 
+    void delete_group(const std::string& name) {
+        create_group_table_if_dont_exist();
+        create_student_table_if_dont_exist();
+
+        auto client = drogon::app().getDbClient("main");
+
+        client->execSqlSync("DELETE FROM students WHERE 'group'=?", name);
+        client->execSqlSync("DELETE FROM groups WHERE name=?", name);
+    }
+
     [[nodiscard]] std::vector<StudentData> search_students(const std::string& query) {
         create_student_table_if_dont_exist();
 

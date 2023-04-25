@@ -1,9 +1,9 @@
 #include "GroupsPageController.hpp"
 #include "main_database_manager.hpp"
 
-void GroupsPageController::asyncHandleHttpRequest(
+void GroupsPageController::show_page(
     const drogon::HttpRequestPtr& request,
-    std::function<void(const drogon::HttpResponsePtr&)>&& callback
+    std::function<void (const drogon::HttpResponsePtr&)>&& callback
 ) {
     if (request->session()->find("email") && request->session()->find("password")) {
         std::string email = request->session()->get<std::string>("email");
@@ -29,4 +29,24 @@ void GroupsPageController::asyncHandleHttpRequest(
         auto response = drogon::HttpResponse::newHttpViewResponse("LogInPage.csp");
         callback(response);
     }
+}
+
+void GroupsPageController::delete_group(
+    const drogon::HttpRequestPtr& request,
+    std::function<void (const drogon::HttpResponsePtr&)>&& callback,
+    const std::string& name
+) {
+    if (!main_db::validate_admin_session(request->getSession())) {
+        auto response = drogon::HttpResponse::newRedirectionResponse("/login");
+        callback(response);
+        return;
+    }
+
+    if (!name.empty()) {
+        main_db::delete_group(name);
+    }
+
+    auto response = drogon::HttpResponse::newRedirectionResponse("/groups");
+    callback(response);
+    return;
 }

@@ -107,9 +107,7 @@ body {
 
     width: 45%;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    overflow: hidden;
 }
 
 .group-button {
@@ -127,11 +125,15 @@ body {
     padding-top: 7px;
     padding-bottom: 7px;
     border-radius: 5px;
+    margin-left: 5px;
 
     background-color: rgb(13, 154, 255);
     border: 1px;
     border-style: solid;
     border-color: rgb(114, 180, 255);
+
+    float: right;
+    align-self: flex-end;
 
     transition: border-color 150ms;
     transition-timing-function: ease-in;
@@ -139,4 +141,11 @@ body {
 
 .group-button:hover {
     border-color: white;
+}
+
+.no-groups-text {
+    font-family: Manrope;
+    font-weight: bolder;
+    font-size: 24px;
+    color: rgb(140, 140, 140);
 }

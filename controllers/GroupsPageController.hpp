@@ -1,14 +1,22 @@
 #pragma once
 
-#include <drogon/HttpSimpleController.h>
+#include <drogon/HttpController.h>
 
-class GroupsPageController : public drogon::HttpSimpleController<GroupsPageController> {
+class GroupsPageController : public drogon::HttpController<GroupsPageController> {
 public:
-    void asyncHandleHttpRequest(
+    METHOD_LIST_BEGIN
+    ADD_METHOD_TO(GroupsPageController::delete_group, "/delete-group?name={}");
+    ADD_METHOD_TO(GroupsPageController::show_page, "/groups");
+    METHOD_LIST_END
+
+    void show_page(
         const drogon::HttpRequestPtr& request,
-        std::function<void(const drogon::HttpResponsePtr&)>&& callback
-    ) override;
-    PATH_LIST_BEGIN
-    PATH_ADD("/groups");
-    PATH_LIST_END
+        std::function<void (const drogon::HttpResponsePtr&)>&& callback
+    );
+
+    void delete_group(
+        const drogon::HttpRequestPtr& request,
+        std::function<void (const drogon::HttpResponsePtr&)>&& callback,
+        const std::string& name
+    );
 };
