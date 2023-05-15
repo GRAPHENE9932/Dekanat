@@ -38,8 +38,16 @@
                     {%cur_student.name%}
                     <span class="email-text">{%cur_student.email%}</span>
                 </div>
-                    <a href="/group?name=[[group]]" class="view-button">View</a>
+                <a href="/group?name={%cur_student.group%}" class="view-button">View</a>
             </div>
+            <%c++
+                }
+
+                if (students.empty()) {
+            %>
+                <div class="no-results-text">
+                    No students found.
+                </div>
             <%c++
                 }
             %>

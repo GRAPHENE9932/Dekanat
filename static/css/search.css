@@ -145,3 +145,10 @@ body {
 .view-button:hover {
     border-color: white;
 }
+
+.no-results-text {
+    font-family: Manrope;
+    font-weight: bolder;
+    font-size: 24px;
+    color: rgb(140, 140, 140);
+}
