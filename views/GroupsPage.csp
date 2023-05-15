@@ -35,7 +35,13 @@
                 <div class="group-container">
                     {%cur_group%}
                     <a href="/group?name={%cur_group%}" class="group-button">View</a>
-                    <a href="/delete-group?name={%cur_group%}" class="group-button" style="background-color: rgb(206, 35, 35); border-color: rgb(167, 28, 28);">Delete</a>
+                    <%c++
+                        if (is_admin) {
+                    %>
+                        <a href="/delete-group?name={%cur_group%}" class="group-button" style="background-color: rgb(206, 35, 35); border-color: rgb(167, 28, 28);">Delete</a>
+                    <%c++
+                        }
+                    %>
                 </div>
             <%c++
                 }
