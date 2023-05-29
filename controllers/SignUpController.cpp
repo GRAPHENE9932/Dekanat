@@ -1,7 +1,7 @@
 #include "SignUpController.hpp"
 #include "string_utils.hpp"
-#include "main_database_manager.hpp"
 #include "validations.hpp"
+#include "models/Admin.hpp"
 
 void SignUpController::submit(
     const drogon::HttpRequestPtr& request,
@@ -36,9 +36,10 @@ void SignUpController::submit(
         callback(response);
     }
     else {
-        main_db::add_admin(username, email, password);
-        request->session()->insert("email", email);
-        request->session()->insert("password", password);
+        Admin admin(username, email);
+        admin.set_password(password);
+        admin.add_to_database();
+        admin.save_to_session(*request->session(), password);
 
         auto response = drogon::HttpResponse::newRedirectionResponse("/groups");
         callback(response);

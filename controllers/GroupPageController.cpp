@@ -1,5 +1,7 @@
 #include "GroupPageController.hpp"
-#include "main_database_manager.hpp"
+#include "models/Group.hpp"
+#include "models/Student.hpp"
+#include "models/Admin.hpp"
 #include <drogon/HttpResponse.h>
 
 void GroupPageController::show(
@@ -13,22 +15,15 @@ void GroupPageController::show(
         return;
     }
 
-    if (!request->session()->find("email") || !request->session()->find("password")) {
-        auto response = drogon::HttpResponse::newHttpViewResponse("LogInPage.csp");
-        callback(response);
-        return;
-    }
-
-    std::string email = request->session()->get<std::string>("email");
-    std::string password = request->session()->get<std::string>("password");
+    Group group(name);
 
     drogon::HttpViewData view_data;
-    view_data.insert("students", main_db::get_students_in_group(name));
-    view_data.insert("group", name);
-    if (main_db::validate_student_credentials(email, password)) {
+    view_data.insert("students", Student::get_students_in_group(group));
+    view_data.insert("group", group);
+    if (Student::get_from_session(*request->getSession()).has_value()) {
         view_data.insert("is_admin", false);
     }
-    else if (main_db::validate_admin_credentials(email, password)) {
+    else if (Admin::get_from_session(*request->getSession()).has_value()) {
         view_data.insert("is_admin", true);
     }
     else {
@@ -47,7 +42,7 @@ void GroupPageController::delete_student(
     const std::string& group,
     const std::string& email
 ) {
-    if (!main_db::validate_admin_session(request->getSession())) {
+    if (!Admin::get_from_session(*request->getSession()).has_value()) {
         auto response = drogon::HttpResponse::newNotFoundResponse();
         callback(response);
         return;
@@ -59,7 +54,7 @@ void GroupPageController::delete_student(
         return;
     }
     
-    main_db::delete_student(email);
+    Student::get_from_email(email)->remove_from_database();
 
     auto response = drogon::HttpResponse::newRedirectionResponse("/group?name=" + group);
     callback(response);

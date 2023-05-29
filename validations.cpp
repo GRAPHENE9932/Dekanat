@@ -1,6 +1,7 @@
 #include "validations.hpp"
 #include "string_utils.hpp"
-#include "main_database_manager.hpp"
+#include "models/Student.hpp"
+#include "models/Admin.hpp"
 
 #include <fstream>
 
@@ -77,7 +78,10 @@
         return "The specified E-mail is empty.";
     }
 
-    if (main_db::check_if_has_admin(email)) {
+    if (
+        Student::get_from_email(email).has_value() ||
+        Admin::get_from_email(email).has_value()
+    ) {
         return "An account with this E-mail is already taken.";
     }
 

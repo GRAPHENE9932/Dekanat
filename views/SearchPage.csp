@@ -1,4 +1,4 @@
-<%inc#include "main_database_manager.hpp" %>
+<%inc#include "models/Student.hpp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,15 +30,15 @@
 
         <div class="content">
             <%c++
-                const auto& students = @@.get<std::vector<main_db::StudentData>>("students");
+                const auto& students = @@.get<std::vector<Student>>("students");
                 for (const auto& cur_student : students) {
             %>
             <div class="student-container">
                 <div>
-                    {%cur_student.name%}
-                    <span class="email-text">{%cur_student.email%}</span>
+                    {%cur_student.get_name()%}
+                    <span class="email-text">{%cur_student.get_email()%}</span>
                 </div>
-                <a href="/group?name={%cur_student.group%}" class="view-button">View</a>
+                <a href="/group?name={%cur_student.get_group().get_name()%}" class="view-button">View</a>
             </div>
             <%c++
                 }

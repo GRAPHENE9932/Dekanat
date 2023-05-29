@@ -1,5 +1,6 @@
 #include "NewGroupPageController.hpp"
-#include "main_database_manager.hpp"
+#include "models/Admin.hpp"
+#include "models/Group.hpp"
 #include "validations.hpp"
 #include <drogon/HttpResponse.h>
 
@@ -7,7 +8,7 @@ void NewGroupPageController::asyncHandleHttpRequest(
     const drogon::HttpRequestPtr& request,
     std::function<void(const drogon::HttpResponsePtr&)>&& callback
 ) {
-    if (!main_db::validate_admin_session(request->getSession())) {
+    if (!Admin::get_from_session(*request->getSession()).has_value()) {
         auto response = drogon::HttpResponse::newNotFoundResponse();
         callback(response);
         return;
@@ -23,7 +24,8 @@ void NewGroupPageController::asyncHandleHttpRequest(
             callback(response);
         }
         else {
-            main_db::add_group(*submitted_name);
+            Group group(*submitted_name);
+            group.add_to_database();
             auto response = drogon::HttpResponse::newRedirectionResponse("/groups");
             callback(response);
         }

@@ -1,5 +1,6 @@
 #include "SearchPageController.hpp"
-#include "main_database_manager.hpp"
+#include "models/Student.hpp"
+#include "models/Admin.hpp"
 #include <drogon/HttpResponse.h>
 #include <drogon/HttpViewData.h>
 
@@ -8,7 +9,10 @@ void SearchPageController::show_page(
     std::function<void (const drogon::HttpResponsePtr&)>&& callback,
     const std::string& query
 ) {
-    if (!main_db::validate_student_or_admin_session(request->getSession())) {
+    if (
+        Student::get_from_session(*request->getSession()).has_value() ||
+        Admin::get_from_session(*request->getSession()).has_value()
+    ) {
         auto response = drogon::HttpResponse::newRedirectionResponse("/login");
         callback(response);
         return;
@@ -21,7 +25,7 @@ void SearchPageController::show_page(
     }
 
     auto view_data = drogon::HttpViewData();
-    view_data.insert("students", main_db::search_students(query));
+    view_data.insert("students", Student::search_students(query));
     auto response = drogon::HttpResponse::newHttpViewResponse("SearchPage.csp", view_data);
     callback(response);
 }

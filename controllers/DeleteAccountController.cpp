@@ -1,19 +1,19 @@
 #include "DeleteAccountController.hpp"
-#include "main_database_manager.hpp"
+#include "models/Admin.hpp"
 #include <drogon/HttpResponse.h>
 
 void DeleteAccountController::asyncHandleHttpRequest(
     const drogon::HttpRequestPtr& request,
     std::function<void(const drogon::HttpResponsePtr&)>&& callback
 ) {
-    if (!main_db::validate_admin_session(request->getSession())) {
+    std::optional<Admin> admin = Admin::get_from_session(*request->getSession());
+    if (!admin.has_value()) {
         auto response = drogon::HttpResponse::newNotFoundResponse();
         callback(response);
         return;
     }
 
-    std::string email = request->session()->get<std::string>("email");
-    main_db::delete_admin(email);
+    admin->remove_from_database();
 
     request->session()->erase("email");
     request->session()->erase("password");

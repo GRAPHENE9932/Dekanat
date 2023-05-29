@@ -1,5 +1,6 @@
 #include "LogInController.hpp"
-#include "main_database_manager.hpp"
+#include "models/Student.hpp"
+#include "models/Admin.hpp"
 #include "string_utils.hpp"
 #include <drogon/HttpResponse.h>
 
@@ -13,7 +14,10 @@ void LogInController::submit(
     std::string email = request->getParameter("email");
     trim(email);
 
-    if (main_db::validate_student_credentials(email, password) || main_db::validate_admin_credentials(email, password)) {
+    if (
+        Admin::get_from_session(*request->getSession()).has_value() ||
+        Student::get_from_session(*request->getSession()).has_value()
+    ) {
         request->session()->insert("email", email);
         request->session()->insert("password", password);
         auto response = drogon::HttpResponse::newRedirectionResponse("/groups");
@@ -34,7 +38,10 @@ void LogInController::show_page(
     if (request->session()->find("email") && request->session()->find("password")) {
         std::string email = request->session()->get<std::string>("email");
         std::string password = request->session()->get<std::string>("password");
-        if (main_db::validate_student_credentials(email, password) || main_db::validate_admin_credentials(email, password)) {
+        if (
+            Admin::get_from_session(*request->getSession()).has_value() ||
+            Student::get_from_session(*request->getSession()).has_value())
+        {
             auto response = drogon::HttpResponse::newRedirectionResponse("/groups");
             callback(response);
         }

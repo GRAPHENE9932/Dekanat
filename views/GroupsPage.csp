@@ -1,3 +1,4 @@
+<%inc#include "models/Group.hpp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,16 +30,16 @@
 
         <div class="content">
             <%c++
-                const std::vector<std::string>& groups = @@.get<std::vector<std::string>>("groups");
-                for (const std::string& cur_group : groups) {
+                const std::vector<Group>& groups = @@.get<std::vector<Group>>("groups");
+                for (const auto& cur_group : groups) {
             %>
                 <div class="group-container">
-                    {%cur_group%}
-                    <a href="/group?name={%cur_group%}" class="group-button">View</a>
+                    {%cur_group.get_name()%}
+                    <a href="/group?name={%cur_group.get_name()%}" class="group-button">View</a>
                     <%c++
                         if (is_admin) {
                     %>
-                        <a href="/delete-group?name={%cur_group%}" class="group-button" style="background-color: rgb(206, 35, 35); border-color: rgb(167, 28, 28);">Delete</a>
+                        <a href="/delete-group?name={%cur_group.get_name()%}" class="group-button" style="background-color: rgb(206, 35, 35); border-color: rgb(167, 28, 28);">Delete</a>
                     <%c++
                         }
                     %>

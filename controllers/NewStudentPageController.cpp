@@ -1,5 +1,6 @@
 #include "NewStudentPageController.hpp"
-#include "main_database_manager.hpp"
+#include "models/Admin.hpp"
+#include "models/Student.hpp"
 #include "string_utils.hpp"
 #include "validations.hpp"
 
@@ -8,7 +9,7 @@ void NewStudentPageController::submit(
     std::function<void (const drogon::HttpResponsePtr&)>&& callback,
     const std::string& group
 ) {
-    if (!main_db::validate_admin_session(request->getSession())) {
+    if (!Admin::get_from_session(*request->getSession()).has_value()) {
         auto response = drogon::HttpResponse::newRedirectionResponse("/login");
         callback(response);
         return;
@@ -41,7 +42,9 @@ void NewStudentPageController::submit(
         callback(response);
     }
     else {
-        main_db::add_student(username, email, password, group);
+        Student student(username, email, group);
+        student.set_password(password);
+        student.add_to_database();
 
         auto response = drogon::HttpResponse::newRedirectionResponse("/groups");
         callback(response);
@@ -53,7 +56,7 @@ void NewStudentPageController::show_page(
     std::function<void (const drogon::HttpResponsePtr&)>&& callback,
     const std::string& group
 ) {
-    if (!main_db::validate_admin_session(request->getSession())) {
+    if (!Admin::get_from_session(*request->getSession()).has_value()) {
         auto response = drogon::HttpResponse::newRedirectionResponse("/login");
         callback(response);
         return;
