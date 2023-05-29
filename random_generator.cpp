@@ -5,7 +5,7 @@
 
 std::mt19937_64 generator;
 
-void seed_rendomizer_with_time() {
+void seed_randomizer_with_time() {
     generator.seed(std::time(nullptr));
 }
 
