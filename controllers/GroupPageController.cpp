@@ -19,7 +19,7 @@ void GroupPageController::show(
 
     drogon::HttpViewData view_data;
     view_data.insert("students", Student::get_students_in_group(group));
-    view_data.insert("group", group);
+    view_data.insert("group_name", group.get_name());
     if (Student::get_from_session(*request->getSession()).has_value()) {
         view_data.insert("is_admin", false);
     }

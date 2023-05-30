@@ -17,7 +17,7 @@
                 const bool is_admin = @@.get<bool>("is_admin");
                 if (is_admin) {
             %>
-                <a href="/new-student?group=[[group]]" class="header-button" style="color: whitesmoke; background-color: rgb(68, 179, 45);">Add new student</a>
+                <a href="/new-student?group=[[group_name]]" class="header-button" style="color: whitesmoke; background-color: rgb(68, 179, 45);">Add new student</a>
             <%c++
                 }
             %>
@@ -36,7 +36,7 @@
                 <%c++
                     if (is_admin) {
                 %>
-                    <a href="/delete-student?group=[[group]]&email={%cur_student.get_email()%}" class="delete-button">Delete</a>
+                    <a href="/delete-student?group=[[group_name]]&email={%cur_student.get_email()%}" class="delete-button">Delete</a>
                 <%c++
                     }
                 %>
