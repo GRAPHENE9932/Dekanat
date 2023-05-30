@@ -14,9 +14,11 @@ void LogInController::submit(
     std::string email = request->getParameter("email");
     trim(email);
 
+    std::optional<Admin> admin = Admin::get_from_email(email);
+    std::optional<Student> student = Student::get_from_email(email);
     if (
-        Admin::get_from_session(*request->getSession()).has_value() ||
-        Student::get_from_session(*request->getSession()).has_value()
+        admin->check_password(password) ||
+        student->check_password(password)
     ) {
         request->session()->insert("email", email);
         request->session()->insert("password", password);
