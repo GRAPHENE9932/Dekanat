@@ -18,6 +18,7 @@ public:
     }
 
     void add_to_database() const;
+    [[nodiscard]] bool exists_in_database() const;
     void remove_from_database() const;
 
     [[nodiscard]] static std::vector<Group> get_all_groups();

@@ -23,6 +23,15 @@ void Group::add_to_database() const {
     );
 }
 
+[[nodiscard]] bool Group::exists_in_database() const {
+    create_group_table_if_dont_exist();
+
+    auto client = drogon::app().getDbClient("main");
+
+    auto result = client->execSqlSync("SELECT * FROM groups WHERE name=?", name);
+    return !result.empty();
+}
+
 void Group::remove_from_database() const {
     create_group_table_if_dont_exist();
 
