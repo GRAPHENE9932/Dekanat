@@ -2,6 +2,7 @@
 #include "string_utils.hpp"
 #include "models/Student.hpp"
 #include "models/Admin.hpp"
+#include "models/Group.hpp"
 
 #include <fstream>
 
@@ -39,6 +40,11 @@
         if (!is_english_letter(c) && !is_digit(c) && c != ' ' && c != '-' && c != '/') {
             return "Group name contains invalid characters. English letters, spaces, '-', and '/' are allowed only.";
         }
+    }
+
+    Group group(group_name);
+    if (group.exists_in_database()) {
+        return "A group with this name already exists.";
     }
 
     return std::nullopt;
