@@ -10,8 +10,8 @@ void SearchPageController::show_page(
     const std::string& query
 ) {
     if (
-        Student::get_from_session(*request->getSession()).has_value() ||
-        Admin::get_from_session(*request->getSession()).has_value()
+        !Student::get_from_session(*request->getSession()).has_value() &&
+        !Admin::get_from_session(*request->getSession()).has_value()
     ) {
         auto response = drogon::HttpResponse::newRedirectionResponse("/login");
         callback(response);
