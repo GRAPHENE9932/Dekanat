@@ -33,11 +33,12 @@ void Group::add_to_database() const {
 }
 
 void Group::remove_from_database() const {
+    Student::remove_all_from_group(*this);
+
     create_group_table_if_dont_exist();
 
     auto client = drogon::app().getDbClient("main");
 
-    client->execSqlSync("DELETE FROM students WHERE `group`=?", name);
     client->execSqlSync("DELETE FROM groups WHERE name=?", name);
 }
 
